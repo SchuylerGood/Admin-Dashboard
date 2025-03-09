@@ -8,6 +8,10 @@
 5. Scan the QR code with the Expo Go app on your phone or press `w` to open the app in the browser.
 
 ## How to run in Expo Snack
+go to: https://snack.expo.dev/AJJg-TLWtvjTCn2OAkpIH
+
+fallback:
+
 1. Go to https://snack.expo.dev/
 2. Click on the three dots button next to projects on the left sidebar.
 3. Click on `Import git repository`
@@ -16,7 +20,7 @@
 6. For `folder path` enter `colonist-admin-dashboard`
 7. For `branch name` enter `main`
 8. Click on the `Import repository` button
-9. Run the app on the right side bar.
+9. Run the app on the right side bar, under `web`
 
 
 ## Required Features Implemented
@@ -38,7 +42,12 @@ Added a loading state to the list of users, and a loading indicator to the botto
 
 **Reasoning:** This enhances the user experience by providing a loading state to the list of users, so if there is a long response time from the API, the user is not left wondering if the app is frozen.
 
-## Best Practices I should have implemented
+### Username search bar
+Added a search bar that filters users by username.
+
+**Reasoning:** This enhances the user experience by providing a way to search for a specific user by username.
+
+## Best Practices I should have implemented given more time
 - Add unit tests
 - Add error handling
 - Add the API url into an env file
