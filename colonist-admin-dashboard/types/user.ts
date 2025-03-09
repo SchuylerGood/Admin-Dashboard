@@ -4,3 +4,7 @@ export interface User {
   country: string;
   createdAt: string;
 } 
+export interface UserNote {
+  userId: string;
+  note: string;
+}
