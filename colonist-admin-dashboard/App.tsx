@@ -14,6 +14,7 @@ export default function App() {
   const [fontsLoaded] = useFonts({ Inter_400Regular, Inter_500Medium, Inter_600SemiBold, Inter_700Bold});
   const { users, loading, refreshing, loadMore, handleRefresh } = useUsers();
   const [selectedCountry, setSelectedCountry] = useState<string>('All Countries');
+  const [searchQuery, setSearchQuery] = useState('');
   const [isAscending, setIsAscending] = useState(true);
   const [showCountryModal, setShowCountryModal] = useState(false);
   const [userNotes, setUserNotes] = useState<UserNote[]>([]);
@@ -31,6 +32,14 @@ export default function App() {
   const filteredUsers = useMemo(() => {
     let filtered = [...users];
     
+    // Apply search filter
+    if (searchQuery.trim()) {
+      filtered = filtered.filter(user => 
+        user.userName.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+    
+    // Apply country filter
     if (selectedCountry !== 'All Countries') {
       filtered = filtered.filter(user => user.country === selectedCountry);
     }
@@ -43,7 +52,7 @@ export default function App() {
     });
 
     return filtered;
-  }, [users, selectedCountry, isAscending]);
+  }, [users, selectedCountry, isAscending, searchQuery]);
 
   const showNotification = () => {
     setShowCopyNotification(true);
@@ -92,7 +101,7 @@ export default function App() {
 
   useEffect(() => {
     loadMore();
-  }, []);
+  }, [loadMore]);
 
   if (!fontsLoaded) {
     return (
@@ -175,28 +184,46 @@ export default function App() {
           <Text style={styles.copyNotificationText}>Copied to clipboard!</Text>
         </Animated.View>
       )}
-      <Text style={styles.header}>Users List</Text>
+      <Text style={styles.header}>Users</Text>
       
       <View style={styles.filtersContainer}>
-        <Pressable 
-          style={styles.countryFilter}
-          onPress={() => setShowCountryModal(true)}
-        >
-          <Text style={styles.filterText}>{selectedCountry}</Text>
-          <Feather name="chevron-down" size={16} color="#666" />
-        </Pressable>
-
-        <Pressable 
-          style={styles.sortButton}
-          onPress={() => setIsAscending(!isAscending)}
-        >
-          <Text style={styles.filterText}>Date</Text>
-          <Feather 
-            name={isAscending ? "arrow-up" : "arrow-down"} 
-            size={16} 
-            color="#666" 
+        <View style={styles.searchContainer}>
+          <Feather name="search" size={16} color="#666" />
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Search username..."
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+            placeholderTextColor="#666"
           />
-        </Pressable>
+          {searchQuery.length > 0 && (
+            <Pressable onPress={() => setSearchQuery('')}>
+              <Feather name="x" size={16} color="#666" />
+            </Pressable>
+          )}
+        </View>
+        
+        <View style={styles.filterButtonsContainer}>
+          <Pressable 
+            style={styles.countryFilter}
+            onPress={() => setShowCountryModal(true)}
+          >
+            <Text style={styles.filterText}>{selectedCountry}</Text>
+            <Feather name="chevron-down" size={16} color="#666" />
+          </Pressable>
+
+          <Pressable 
+            style={styles.sortButton}
+            onPress={() => setIsAscending(!isAscending)}
+          >
+            <Text style={styles.filterText}>Date</Text>
+            <Feather 
+              name={isAscending ? "arrow-up" : "arrow-down"} 
+              size={16} 
+              color="#666" 
+            />
+          </Pressable>
+        </View>
       </View>
 
       <Modal
