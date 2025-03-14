@@ -8,7 +8,7 @@
 5. Scan the QR code with the Expo Go app on your phone or press `w` to open the app in the browser.
 
 ## How to run in Expo Snack
-go to: https://snack.expo.dev/AJJg-TLWtvjTCn2OAkpIH
+go to: https://snack.expo.dev/AlYt9aSAVUUntUrg63S-o
 
 fallback:
 
