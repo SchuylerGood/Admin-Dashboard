@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { User } from '../types/user';
+import { User } from '../types/types';
 
 const API_URL = 'https://6799ee3d747b09cdcccd06bc.mockapi.io/api/v1/users';
 const LIMIT = 20;
